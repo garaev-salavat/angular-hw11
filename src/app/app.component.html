@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Имя</th>
+      <th>Почта</th>
+      <th>Адрес</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users.users | async; let i=index">
+      <td>{{user.name}} ({{user.username}})</td>
+      <td>{{user.email}}</td>
+      <td>
+        {{user.address.zipcode}} <br>
+        {{user.address.city}} <br>
+        {{user.address.street}} <br>
+        {{user.address.suite}} <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
