@@ -1,45 +1,31 @@
+<hr />
 <div>
   <div>
     <form [formGroup]="userForm">
-      <label>Номер</label>
-      <div>
-        <input type="number" formControlName="id" />
-        <span *ngIf="userForm.get('id').invalid">Обязательное поле</span>
-      </div>
-
-      <label>Имя</label>
-      <div>
-        <input type="text" formControlName="name" />
-        <span *ngIf="userForm.get('name').invalid">Обязательное поле</span>
-      </div>
-
-      <label>Имя пользователя</label>
-      <div>
-        <input type="text" formControlName="username" />
-        <span *ngIf="userForm.get('username').invalid">Обязательное поле</span>
-      </div>
-
-      <label>E-mail</label>
-      <div>
-        <input type="text" formControlName="email" />
-        <span *ngIf="userForm.get('email').invalid">Обязательное поле</span>
-      </div>
-
-      <label>Адрес</label>
-      <div><input type="text" formControlName="address" /></div>
-
-      <label>Телефон</label>
-      <div><input type="text" formControlName="phone" /></div>
-
-      <label>Сайт</label>
-      <div><input type="text" formControlName="website" /></div>
-
-      <div>
-        <button type="button" (click)="sendUser()">
-          Создание(POST) / Изменения(PUT)</button
-        ><br />
-        <button (click)="resetForm()">Сброс</button>
-      </div>
+      <table>
+        <tr>
+          <th>Номер</th>
+          <th>Имя</th>
+          <th>Имя пользователя</th>
+          <th>E-mail</th>
+          <th>Адрес</th>
+          <th>Телефон</th>
+          <th>Сайт</th>
+        </tr>
+        <tr>
+          <td><input disabled="true" type="number" formControlName="id" /></td>
+          <td><input type="text" formControlName="name" /></td>
+          <td><input type="text" formControlName="username" /></td>
+          <td><input type="text" formControlName="email" /></td>
+          <td><input type="text" formControlName="address" /></td>
+          <td><input type="text" formControlName="phone" /></td>
+          <td><input type="text" formControlName="website" /></td>
+        </tr>
+      </table>
+      <button type="button" (click)="sendUser()">
+        Создание(POST) / Изменения(PUT)
+      </button>
+      <button (click)="resetForm()">Сброс</button>
     </form>
   </div>
   <table>
@@ -63,10 +49,10 @@
           {{ user.address.suite }} <br />
         </td>
         <td>
+          <button type="button" (click)="editUser(user)">Изменить</button><br />
           <button type="button" (click)="deleteUser(i)">
             Удаление (DELETE)
           </button>
-          <button type="button" (click)="editUser(user)">Изменить</button><br />
         </td>
       </tr>
     </tbody>
