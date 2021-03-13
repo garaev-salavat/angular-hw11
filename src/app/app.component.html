@@ -1,21 +1,74 @@
-<table>
-  <thead>
-    <tr>
-      <th>Имя</th>
-      <th>Почта</th>
-      <th>Адрес</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users.users | async; let i=index">
-      <td>{{user.name}} ({{user.username}})</td>
-      <td>{{user.email}}</td>
-      <td>
-        {{user.address.zipcode}} <br>
-        {{user.address.city}} <br>
-        {{user.address.street}} <br>
-        {{user.address.suite}} <br>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <div>
+    <form [formGroup]="userForm">
+      <label>Номер</label>
+      <div>
+        <input type="number" formControlName="id" />
+        <span *ngIf="userForm.get('id').invalid">Обязательное поле</span>
+      </div>
+
+      <label>Имя</label>
+      <div>
+        <input type="text" formControlName="name" />
+        <span *ngIf="userForm.get('name').invalid">Обязательное поле</span>
+      </div>
+
+      <label>Имя пользователя</label>
+      <div>
+        <input type="text" formControlName="username" />
+        <span *ngIf="userForm.get('username').invalid">Обязательное поле</span>
+      </div>
+
+      <label>E-mail</label>
+      <div>
+        <input type="text" formControlName="email" />
+        <span *ngIf="userForm.get('email').invalid">Обязательное поле</span>
+      </div>
+
+      <label>Адрес</label>
+      <div><input type="text" formControlName="address" /></div>
+
+      <label>Телефон</label>
+      <div><input type="text" formControlName="phone" /></div>
+
+      <label>Сайт</label>
+      <div><input type="text" formControlName="website" /></div>
+
+      <div>
+        <button type="button" (click)="sendUser()">
+          Создание(POST) / Изменения(PUT)</button
+        ><br />
+        <button (click)="resetForm()">Сброс</button>
+      </div>
+    </form>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Номер</th>
+        <th>Имя</th>
+        <th>Почта</th>
+        <th>Адрес</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users.users; let i = index">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }} ({{ user.username }})</td>
+        <td>{{ user.email }}</td>
+        <td>
+          {{ user.address.zipcode }} <br />
+          {{ user.address.city }} <br />
+          {{ user.address.street }} <br />
+          {{ user.address.suite }} <br />
+        </td>
+        <td>
+          <button type="button" (click)="deleteUser(i)">
+            Удаление (DELETE)
+          </button>
+          <button type="button" (click)="editUser(user)">Изменить</button><br />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
