@@ -1,14 +1,16 @@
 export class User {
   id: 0;
-  name: '';
-  username: '';
-  email: '';
-  address: '';
-  phone: '';
-  website: '';
-  company: {
-    name: '';
-    catchPhrase: '';
-    bs: '';
-  };
+  name: string;
+  username: string;
+  email: string;
+  address: Address = new Address();
+  phone: string;
+  website: string;
+}
+
+export class Address {
+  zipcode: string;
+  city: string;
+  street: string;
+  suite: string;
 }

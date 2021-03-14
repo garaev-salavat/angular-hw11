@@ -5,27 +5,71 @@
       <table>
         <tr>
           <th>Номер</th>
-          <th>Имя</th>
-          <th>Имя пользователя</th>
-          <th>E-mail</th>
-          <th>Адрес</th>
-          <th>Телефон</th>
-          <th>Сайт</th>
+          <td><input disabled="true" type="number" formControlName="id" /></td>
         </tr>
         <tr>
-          <td><input disabled="true" type="number" formControlName="id" /></td>
-          <td><input type="text" formControlName="name" /></td>
-          <td><input type="text" formControlName="username" /></td>
-          <td><input type="text" formControlName="email" /></td>
-          <td><input type="text" formControlName="address" /></td>
-          <td><input type="text" formControlName="phone" /></td>
-          <td><input type="text" formControlName="website" /></td>
+          <th>Имя</th>
+          <td>
+            <input type="text" formControlName="name" placeholder="Имя" />
+          </td>
+        </tr>
+        <tr>
+          <th>Имя пользователя</th>
+          <td>
+            <input
+              type="text"
+              formControlName="username"
+              placeholder="Имя пользователя"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th>E-mail</th>
+          <td>
+            <input type="text" formControlName="email" placeholder="E-mail" />
+          </td>
+        </tr>
+        <tr>
+          <th rowspan="4">Адрес</th>
+          <td>
+            <input type="text" formControlName="zipcode" placeholder="Индекс" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" formControlName="city" placeholder="Город" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" formControlName="street" placeholder="Улица" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" formControlName="suite" placeholder="Квартира" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Телефон</th>
+          <td>
+            <input type="text" formControlName="phone" placeholder="Телефон" />
+          </td>
+        </tr>
+        <tr>
+          <th>Сайт</th>
+          <td>
+            <input type="text" formControlName="website" placeholder="Сайт" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="button" (click)="sendUser()">
+            Создание(POST) / Изменения(PUT)
+          </button>
+          <button (click)="resetForm()">Сброс</button></td>
         </tr>
       </table>
-      <button type="button" (click)="sendUser()">
-        Создание(POST) / Изменения(PUT)
-      </button>
-      <button (click)="resetForm()">Сброс</button>
     </form>
   </div>
   <table>
@@ -35,6 +79,7 @@
         <th>Имя</th>
         <th>Почта</th>
         <th>Адрес</th>
+        <th>Действия</th>
       </tr>
     </thead>
     <tbody>
