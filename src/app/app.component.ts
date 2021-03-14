@@ -15,11 +15,7 @@ export class AppComponent implements OnInit {
 
   userForm: FormGroup;
 
-  constructor(
-    public users: UsersService,
-    fb: FormBuilder,
-    addresfb: FormBuilder
-  ) {
+  constructor(public users: UsersService, fb: FormBuilder, addresfb: FormBuilder) {
     users.loadUsers();
 
     this.userForm = fb.group({
@@ -27,10 +23,10 @@ export class AppComponent implements OnInit {
       name: fb.control(null, Validators.required),
       username: fb.control(null),
       email: fb.control(null),
-      zipcode: fb.control(''),
-      city: fb.control(''),
-      street: fb.control(''),
-      suite: fb.control(''),
+          zipcode: fb.control(''),
+          city: fb.control(''),
+          street: fb.control(''),
+          suite: fb.control(''),
       phone: fb.control(null),
       website: fb.control(null),
     });
@@ -45,39 +41,43 @@ export class AppComponent implements OnInit {
 
     let user: User = new User();
     let userId = this.userForm.get('id').value;
+    
+
     user.name = this.userForm.get('name').value;
     user.username = this.userForm.get('username').value;
     user.email = this.userForm.get('email').value;
+    
     user.address.zipcode = this.userForm.get('zipcode').value;
     user.address.city = this.userForm.get('city').value;
     user.address.street = this.userForm.get('street').value;
     user.address.suite = this.userForm.get('suite').value;
+
     user.phone = this.userForm.get('phone').value;
     user.website = this.userForm.get('website').value;
 
-    if (userId === 0 || userId == null) {
-      user.id = this.users.users.length + 1;
-      this.users.users.insert(0, user);
-      this.users.postUser(user);
-      this.userForm.reset();
-    } else {
-      let userIndex: number = this.users.users.findIndex(
-        (o) => o.id === userId
-      );
-      this.users.users[userIndex].id = userId;
-      this.users.users[userIndex].name = user.name;
-      this.users.users[userIndex].username = user.username;
-      this.users.users[userIndex].email = user.email;
-      this.users.users[userIndex].address.zipcode = user.address.zipcode;
-      this.users.users[userIndex].address.city = user.address.city;
-      this.users.users[userIndex].address.street = user.address.street;
-      this.users.users[userIndex].address.suite = user.address.suite;
-      this.users.users[userIndex].phone = user.phone;
-      this.users.users[userIndex].website = user.website;
-      this.users.putUser(user, userIndex);
-      this.userForm.reset();
+      if (userId === 0 || userId == null) {
+        user.id = this.users.users.length + 1;
+        this.users.users.push(user);
+        this.users.postUser(user);
+        this.userForm.reset();
+      } else {
+        let userIndex: number = this.users.users.findIndex((o) => o.id === userId)
+        this.users.users[userIndex].id = userId;
+        this.users.users[userIndex].name = user.name;
+        this.users.users[userIndex].username = user.username;
+        this.users.users[userIndex].email = user.email;
+        this.users.users[userIndex].address.zipcode =  user.address.zipcode;
+        this.users.users[userIndex].address.city = user.address.city;
+        this.users.users[userIndex].address.street = user.address.street;
+        this.users.users[userIndex].address.suite = user.address.suite;
+
+        this.users.users[userIndex].phone = user.phone;
+        this.users.users[userIndex].website = user.website;
+        this.users.putUser(user, userIndex);
+        this.userForm.reset();
+      }
     }
-  }
+
 
   editUser(userToForm: any) {
     this.userForm.get('id').setValue(userToForm.id);
