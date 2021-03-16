@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { timeout } from 'rxjs/operators';
 import { Address, User } from './user';
 import { UsersService } from './users.service';
 
@@ -12,6 +14,10 @@ export class AppComponent implements OnInit {
   title = 'angular-homework11';
 
   sendButtonActive: boolean = false;
+
+  displayedColumns: string[] = ['id', 'name', 'email', 'zipcode', 'city', 'street', 'suite'];
+
+  dataSource;
 
   userForm: FormGroup;
 
@@ -32,12 +38,21 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
-  filterFunction() {}
+
+  }
+
+
+  filterFunction(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   sendUser(i?: number): void {
     console.log(this.users.users.length);
+
+    this.dataSource = new MatTableDataSource(this.users.users);
 
     let user: User = new User();
     let userId = this.userForm.get('id').value;

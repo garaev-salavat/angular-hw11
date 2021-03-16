@@ -1,105 +1,182 @@
-<hr />
-<div>
-  <div>
-    <form [formGroup]="userForm">
-      <table>
-        <tr>
-          <th>Номер</th>
-          <td><input disabled="true" type="number" formControlName="id" /></td>
-        </tr>
-        <tr>
-          <th>Имя</th>
-          <td>
-            <input type="text" formControlName="name" placeholder="Имя" />
-          </td>
-        </tr>
-        <tr>
-          <th>Имя пользователя</th>
-          <td>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <form class="example-form" [formGroup]="userForm">
+        <div>
+          <div>
+          <mat-form-field style="width: 300px;" appearance="outline">
+            <mat-label>Номер</mat-label>
             <input
+              matInput
+              id="id"
               type="text"
-              formControlName="username"
-              placeholder="Имя пользователя"
+              class="validate"
+              formControlName="id"
             />
-          </td>
-        </tr>
-        <tr>
-          <th>E-mail</th>
-          <td>
-            <input type="text" formControlName="email" placeholder="E-mail" />
-          </td>
-        </tr>
-        <tr>
-          <th rowspan="4">Адрес</th>
-          <td>
-            <input type="text" formControlName="zipcode" placeholder="Индекс" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" formControlName="city" placeholder="Город" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" formControlName="street" placeholder="Улица" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="text" formControlName="suite" placeholder="Квартира" />
-          </td>
-        </tr>
+          </mat-form-field>
+          </div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="name"
+              type="text"
+              class="validate"
+              formControlName="name"
+            />
+            <mat-label>Имя</mat-label>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="username"
+              type="text"
+              class="validate"
+              formControlName="username"
+            />
+            <mat-label>Имя пользователя</mat-label>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="email"
+              type="text"
+              class="validate"
+              formControlName="email"
+            />
+            <mat-label>E-mail</mat-label>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="zipcode"
+              type="text"
+              class="validate"
+              formControlName="zipcode"
+            />
+            <mat-label>Индекс</mat-label>
+          </mat-form-field>
 
-        <tr>
-          <th>Телефон</th>
-          <td>
-            <input type="text" formControlName="phone" placeholder="Телефон" />
-          </td>
-        </tr>
-        <tr>
-          <th>Сайт</th>
-          <td>
-            <input type="text" formControlName="website" placeholder="Сайт" />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2"><button type="button" (click)="sendUser()">
-            Создание(POST) / Изменения(PUT)
-          </button>
-          <button (click)="resetForm()">Сброс</button></td>
-        </tr>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="city"
+              type="text"
+              class="validate"
+              formControlName="city"
+            />
+            <mat-label>Город</mat-label>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="street"
+              type="text"
+              class="validate"
+              formControlName="street"
+            />
+            <mat-label>Улица</mat-label>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="suite"
+              type="text"
+              class="validate"
+              formControlName="suite"
+            />
+            <mat-label>Квартира</mat-label>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="phone"
+              type="text"
+              class="validate"
+              formControlName="phone"
+            />
+            <mat-label>Телефон</mat-label>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input
+              matInput
+              id="website"
+              type="text"
+              class="validate"
+              formControlName="website"
+            />
+            <mat-label>Сайт</mat-label>
+          </mat-form-field>
+        </div>
+        <section>
+
+          <div class="example-button-row">
+        <button mat-raised-button color="primary" (click)="sendUser()">
+          Создание(POST) / Изменения(PUT)
+        </button>
+        <button mat-raised-button color="basic" (click)="resetForm()">
+          Сброс
+        </button>
+      </div>
+    </section>
+      </form>
+
+    </div>
+
+    <div>
+
+
+
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="filterFunction($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> id </th>
+          <td mat-cell *matCellDef="let element"> {{ user.id }} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>name </th>
+          <td mat-cell *matCellDef="let element"> {{  user.name }}  ({{ user.username }}) </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>email </th>
+          <td mat-cell *matCellDef="let element"> {{  user.email }} </td>
+        </ng-container>
+        <ng-container matColumnDef="zipcode">
+          <th mat-header-cell *matHeaderCellDef>zipcode </th>
+          <td mat-cell *matCellDef="let element"> {{  user.address.zipcode }} </td>
+        </ng-container>
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef>city </th>
+          <td mat-cell *matCellDef="let element"> {{  user.address.city }} </td>
+        </ng-container>
+        <ng-container matColumnDef="street">
+          <th mat-header-cell *matHeaderCellDef>street </th>
+          <td mat-cell *matCellDef="let element"> {{  user.address.street }} </td>
+        </ng-container>
+        <ng-container matColumnDef="suite">
+          <th mat-header-cell *matHeaderCellDef>suite </th>
+          <td mat-cell *matCellDef="let element"> {{  user.address.suite }} </td>
+        </ng-container>
+         <!-- <ng-container>
+          <th mat-header-cell *matHeaderCellDef>Имя </th>
+          <td mat-cell *matCellDef="let element">               <button type="button" (click)="editUser(user)">Изменить</button
+            ><br />
+            <button type="button" (click)="deleteUser(i)">
+              Удаление (DELETE)
+            </button> </td>
+        </ng-container>  -->
       </table>
-    </form>
+
+
+          </div>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>Номер</th>
-        <th>Имя</th>
-        <th>Почта</th>
-        <th>Адрес</th>
-        <th>Действия</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users.users; let i = index">
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }} ({{ user.username }})</td>
-        <td>{{ user.email }}</td>
-        <td>
-          {{ user.address.zipcode }} <br />
-          {{ user.address.city }} <br />
-          {{ user.address.street }} <br />
-          {{ user.address.suite }} <br />
-        </td>
-        <td>
-          <button type="button" (click)="editUser(user)">Изменить</button><br />
-          <button type="button" (click)="deleteUser(i)">
-            Удаление (DELETE)
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
