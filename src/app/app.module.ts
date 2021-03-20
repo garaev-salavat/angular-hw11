@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
 import { UsersService } from './users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddressConcatInterceptor } from './address-concat.interceptor';
 
 
 
@@ -21,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     MaterialModule,
   ],
-  providers: [UsersService],
+  providers: [UsersService, {provide: HTTP_INTERCEPTORS, useClass: AddressConcatInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

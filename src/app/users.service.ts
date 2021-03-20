@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from './user';
+import { User, Users } from './user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   users;
+  users1;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadUsers;
+  }
 
   loadUsers() {
     this.http
@@ -17,6 +21,12 @@ export class UsersService {
       .subscribe((data) => {
         this.users = data;
       });
+  }
+
+  getUsers(): Observable<Users> {
+    return this.http.get(
+      'https://jsonplaceholder.typicode.com/users'
+    ) as Observable<Users>;
   }
 
   deleteUser(i: number) {
