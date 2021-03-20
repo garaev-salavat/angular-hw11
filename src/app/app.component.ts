@@ -48,7 +48,6 @@ export class AppComponent implements OnInit, OnChanges {
 
       this.dataSource = new MatTableDataSource(this.usersFormArray.controls);
       this.dataSource.filterPredicate = (row, filter) => {
-        console.log(row, filter);
         const user = row.value as User;
         return (
           user.username
@@ -76,15 +75,15 @@ export class AppComponent implements OnInit, OnChanges {
   deleteUser(i: number): void {
     this.usersFormArray.removeAt(i);
     this.dataSource = new MatTableDataSource(this.usersFormArray.controls);
-    this.users.deleteUser(i);
   }
 
   create(i: number): void {
-    this.usersFormArray.insert(i + 1, this.fb.control(''));
+    this.usersFormArray.insert(i + 1, this.fb.group({
+      name: this.fb.control(''),
+      username: this.fb.control(''),
+      email: this.fb.control(''),
+      addressname: this.fb.control(''),
+    }));
     this.dataSource = new MatTableDataSource(this.usersFormArray.controls);
-  }
-
-  get usersArray(): FormArray {
-    return this.userForm.get('users') as FormArray;
   }
 }
